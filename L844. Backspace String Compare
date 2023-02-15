@@ -1,0 +1,130 @@
+844. Backspace String Compare
+
+
+https://leetcode.com/problems/backspace-string-compare/
+
+
+
+Solution 1: T:O(m+n) S:O(m+n)
+Using Stack
+
+
+class Solution:
+    def __init__(self):
+        self.l=[]
+        self.m=[]
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        for i in s:
+            if(i=="#"):
+                self.pops()
+            else:
+                self.pushs(i)
+        for i in t:
+            if(i=="#"):
+                self.popt()
+            else:
+                self.pusht(i)
+        if(self.l==self.m):
+            return True
+        else:
+            return False
+    def pushs(self,element):
+        self.l.append(element)
+    def pusht(self,element):
+        self.m.append(element)
+    def pops(self):
+        if(len(self.l)>0):
+            self.l.pop()
+    def popt(self):
+        if(len(self.m)>0):
+            self.m.pop()
+            
+            
+ Solution 2: T:O(m+n)    S:O(1)
+ Using Two Pointers Approach
+ 
+ class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        i=len(s)-1
+        j=len(t)-1
+        ss=0
+        ts=0
+        while(i>=0 or j>=0):
+            while(i>=0):
+                if(s[i]=="#"):
+                    i=i-1
+                    ss+=1
+                elif(ss>0):
+                    i=i-1
+                    ss-=1
+                else:
+                    break
+            while(j>=0):
+                if(t[j]=="#"):
+                    j=j-1
+                    ts+=1
+                elif(ts>0):
+                    j=j-1
+                    ts-=1
+                else:
+                    break
+            if(i>=0 and j>=0 and s[i]!=t[j]):
+                return False
+            elif((i>=0 and j<0) or (i<0 and j>=0)):
+                return False
+            i=i-1
+            j=j-1
+        else:
+            return True
+            
+     
+     
+ Solution 3: O(m+n)     S:O(1)
+ Using yield and itertools
+ 
+ 
+ import itertools
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        def function(S):
+            skip=0
+            for i in reversed(S):
+                if(i=="#"):
+                    skip+=1
+                elif(skip>0):
+                    skip-=1
+                else:
+                    yield i
+        return all(x==y for x,y in itertools.zip_longest(function(s),function(t)))
+    
+    
+    
+ 
+ 
+ Solution 4 : O(m+n)     S:O(1)
+ Using string slicing
+ 
+ class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        while("#" in s):
+            m=s.index("#")
+            if(m==0):
+                s=s[m+1:]
+            else:
+                s=s[:m-1]+s[m+1:]
+        while("#" in t):
+            m=t.index("#")
+            if(m==0):
+                t=t[m+1:]
+            else:
+                t=t[:m-1]+t[m+1:]
+        # print(s)
+        # print(t)
+        if(t==s):
+            return True
+        else:
+            return False
+  
+  
+  Solution 5:
+  Using substring concept
