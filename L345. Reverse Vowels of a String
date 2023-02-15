@@ -1,0 +1,64 @@
+345. Reverse Vowels of a String
+
+
+
+https://leetcode.com/problems/reverse-vowels-of-a-string/
+
+
+
+
+
+Solution1:
+Using Stack
+
+
+class Solution:
+    def __init__(self):
+        self.l=[]
+    def reverseVowels(self, s: str) -> str:
+        m=list(s)
+        for i in m:
+            if(i=="a" or i=="i" or i=="e" or i=="o" or i=="u" or i=="A" or i=="E" or i=="I" or i=="O" or i=="U"):
+                self.push(i)
+        for i in range(len(m)):
+            if(m[i]=="a" or m[i]=="e" or m[i]=="i" or m[i]=="o" or m[i]=="u" or m[i]=="A" or m[i]=="E" or m[i]=="I" or m[i]=="O" or m[i]=="U"):
+                m[i]=self.pop()
+        ss=""
+        for i in m:
+            ss=ss+""+i
+        return ss
+    def push(self,el):
+        self.l.append(el)
+    def pop(self):
+        if(len(self.l)>0):
+            return self.l.pop()
+            
+ Solution2:
+ using two pointer approach
+ 
+ class Solution:
+    def reverseVowels(self, s: str) -> str:
+        m=["a","e","i","o","u","A","E","I","O","U"]
+        l=[None for i in range(len(s))]
+        for i in range(len(s)):
+            l[i]=s[i]
+        i=0
+        j=len(s)-1
+        while(i<j):
+            while(i<len(l) and l[i] not in m):
+                i=i+1
+            while(j>0 and l[j] not in m):
+                j=j-1
+            if(i<len(l) and j>0 and i<j and l[i] in m and l[j] in m ):
+                l[i],l[j]=l[j],l[i]
+                print(l[i],l[j])
+                # print(l)
+                i=i+1
+                j=j-1
+        ss=""
+        for i in l:
+            ss=ss+""+i
+        return ss
+
+ 
+ 
