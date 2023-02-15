@@ -52,3 +52,13 @@ class Solution:
         # print(m)
         return t
         
+Solution 4:
+using python
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        l=s.split()
+        print(l)
+        ll=reversed(l)
+        ss=" ".join(ll)
+        return ss
