@@ -1,0 +1,85 @@
+G.Infix to Postfix
+
+
+
+https://practice.geeksforgeeks.org/problems/infix-to-postfix-1587115620/1
+
+
+
+
+
+
+#User function Template for python3
+
+
+class Solution:
+    
+    def __init__(self):
+        self.l=[]
+        self.stack=[]
+    def push(self,element):
+        self.stack.append(element)
+    def pop(self):
+        return self.stack.pop()
+    #Function to convert an infix expression to a postfix expression.
+    def InfixtoPostfix(self, exp):
+        for i in exp:
+            if(i=="{" or i=="[" or i=="("):
+                # print(i)
+                self.push(i)
+            elif(i==")"):
+                # print(i)
+                while(len(self.stack)>0 and self.stack[-1]!="("):
+                    a=self.pop()
+                    self.l.append(a)
+                self.pop()
+            elif(i=="]"):
+                # print(i)
+                while(len(self.stack)>0 and self.stack[-1]!="["):
+                    a=self.pop()
+                    self.l.append(a)
+                self.pop()
+            elif(i=="}"):
+                # print(i)
+                while(len(self.stack)>0 and self.stack[-1]!="{"):
+                    a=self.pop()
+                    self.l.append(a)
+                self.pop()
+            elif(i=="^"):
+                # print(i)
+                self.push(i)
+            elif(i=="*" or i=="/"):
+                # print(i)
+                if(len(self.stack)==0):
+                    self.push(i)
+                else:
+                    while(len(self.stack)>0 and self.stack[-1]=="*" or self.stack[-1]=="/" or self.stack[-1]=="^"):
+                        a=self.pop()
+                        self.l.append(a)
+                        if(len(self.stack)==0):
+                            break
+                    self.push(i)
+            elif(i=="+" or i=="-"):
+                if(len(self.stack)==0):
+                    self.push(i)
+                else:
+                    while(len(self.stack)>0 and (self.stack[-1]=="*" or self.stack[-1]=="/" or self.stack[-1]=="^" or self.stack[-1]=="+" or self.stack[-1]=="-")):
+                        # print(self.stack)
+                        a=self.pop()
+                        # print(i,a)
+                        self.l.append(a)
+                        if(len(self.stack)==0):
+                            break
+                    self.push(i)
+                # print(i,self.stack,self.l)
+            else:
+                # print(i)
+                self.l.append(i)
+        while(len(self.stack)>0):
+            a=self.pop()
+            self.l.append(a)
+        # print(self.l)
+        ss=""
+        for i in self.l:
+            ss=ss+""+i
+        return ss
