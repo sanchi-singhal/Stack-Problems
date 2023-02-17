@@ -1,0 +1,42 @@
+Prefix to Postfix Conversion
+
+
+https://practice.geeksforgeeks.org/problems/prefix-to-postfix-conversion/1
+
+
+
+class Solution:
+    def __init__(self):
+        self.l=[]
+    def push(self,element):
+        self.l.append(element)
+    def pop(self):
+        return self.l.pop()
+    def preToPost(self, pre_exp):
+        for i in reversed(pre_exp):
+            # print(self.l)
+            if(i=="+"):
+                a=self.pop()
+                b=self.pop()
+                self.push(a+b+"+")
+            elif(i=="-"):
+                a=self.pop()
+                b=self.pop()
+                self.push(a+b+"-")
+            elif(i=="*"):
+                a=self.pop()
+                b=self.pop()
+                self.push(a+b+"*")
+            elif(i=="/"):
+                a=self.pop()
+                b=self.pop()
+                self.push(a+b+"/")
+            else:
+                self.push(i)
+        # print(self.l)
+        
+        ss=""
+        for i in self.l:
+            ss=ss+""+i
+        # print(ss)
+        return ss
