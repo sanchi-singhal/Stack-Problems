@@ -1,0 +1,90 @@
+155. Min Stack
+
+
+https://leetcode.com/problems/min-stack/description/
+
+
+1. In constant space:
+
+class MinStack:
+
+    def __init__(self):
+        self.l=[]
+        self.c=None
+
+    def push(self, val: int) -> None:
+        if( self.c==None ):
+            self.l.append(val)
+            self.c=val
+        elif(val>self.c):
+            self.l.append(val)
+        else:
+            self.l.append(2*val-self.c)
+            self.c=val
+    def pop(self) -> None:
+        if(self.l):
+            if(self.l[-1]<self.c):
+                # self.l.pop()
+                self.c=(2*self.c-self.l.pop())
+            elif(len(self.l)==1):
+                self.l.pop()
+                self.c=None
+            else:
+                self.l.pop()
+        
+
+    def top(self) -> int:
+        if(self.l[-1]<self.c):
+            return self.c
+        elif(self.l[-1]>=self.c):
+            return self.l[-1]
+        else:
+            return -1
+        
+
+    def getMin(self) -> int:
+        if(self.c!=None):
+            return self.c
+        else:
+            return -1
+            
+     
+     
+ 2. using a temporary stack
+ 
+ 
+ class MinStack:
+
+    def __init__(self):
+        self.l=[]
+        self.m=[]
+        
+
+    def push(self, val: int) -> None:
+        if(self.m==[] or val<=self.m[-1]):
+            self.l.append(val)
+            self.m.append(val)
+        elif(val>self.m[-1]):
+            self.l.append(val)
+        
+    def pop(self) -> None:
+        if(self.l):
+            if(self.l[-1]==self.m[-1]):
+                self.l.pop()
+                self.m.pop()
+            else:
+                self.l.pop()
+        
+
+    def top(self) -> int:
+        if(self.l):
+            return self.l[-1]
+        else:
+            return -1
+        
+
+    def getMin(self) -> int:
+        if(self.m):
+            return self.m[-1]
+        else:
+            return -1
