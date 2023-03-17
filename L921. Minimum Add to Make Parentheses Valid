@@ -1,0 +1,47 @@
+921. Minimum Add to Make Parentheses Valid
+
+
+https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/
+
+
+Approach 1: USing a stack
+
+
+class Solution:
+    def __init__(self):
+        self.l=[]
+    def push(self,el):
+        self.l.append(el)
+    def pop(self):
+        if(self.l):
+            self.l.pop()
+    def minAddToMakeValid(self, s: str) -> int:
+        for i in s:
+            if(self.l==[]):
+                self.push(i)
+            elif(self.l[-1]=="(" and i==")"):
+                self.pop()
+            else:
+                self.push(i)
+        # print(self.l)
+        return len(self.l)
+        
+
+Approach 2: Using array
+
+class Solution:
+    def minAddToMakeValid(self, s: str) -> int:
+        mistake = 0
+        open = 0
+        for i in s:
+            if i == "(":
+                open += 1
+            elif i == ")":
+                if open > 0:
+                    open -= 1
+                else:
+                    mistake += 1
+
+        return open + mistake
+
+
