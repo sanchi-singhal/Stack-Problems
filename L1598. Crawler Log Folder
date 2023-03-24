@@ -1,0 +1,25 @@
+1598. Crawler Log Folder
+
+
+https://leetcode.com/problems/crawler-log-folder/description/
+
+
+1. Using for loops:
+
+
+class Solution:
+    def minOperations(self, logs: List[str]) -> int:
+        m=0
+        for i in logs:
+            if(i=="../" and m>0):
+                m=m-1
+            elif(i[-1]=="/" and i[-2]!="."):
+                m=m+1
+        return m
+        
+ alternative: switch case can also be used in c/c++.
+        
+        
+2. stack
+
+approach:  append in stack for two cases and return its length
