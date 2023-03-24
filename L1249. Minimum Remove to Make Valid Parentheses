@@ -1,0 +1,72 @@
+1249. Minimum Remove to Make Valid Parentheses
+
+https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/description/
+
+
+
+1. Using stacks
+
+
+class Solution:
+    def __init__(self):
+        self.l=[]
+        self.m=[]
+    def push(self,el,list):
+        list.append(el)
+    def pop(self,list):
+        if(list):
+            list.pop()
+    def minRemoveToMakeValid(self, s: str) -> str:
+        for i in s:
+            if(i=="("):
+                self.push(i,self.l)
+                self.push(i,self.m)
+            elif(i==")"):
+                if(self.m!=[] and self.m[-1]=="("):
+                    self.pop(self.m)
+                    self.push(i,self.l)
+            else:
+                self.push(i,self.l)
+
+        # print(self.l)
+        ss=""
+        for i in self.l:
+            ss=ss+i
+        if(len(self.m)==0):
+            return ss
+        else:
+            self.m=[]
+            self.l=[]
+            for i in ss[::-1]:
+                if(i==")"):
+                    self.push(i,self.l)
+                    self.push(i,self.m)
+                elif(i=="("):
+                    if(self.m==[] or self.m[-1]!=")"):
+                        pass
+                    else:
+                        self.push(i,self.l)
+                        self.pop(self.m)
+
+                else:
+                    self.push(i,self.l)
+            st=""
+            for i in self.l[::-1]:
+                st=st+i
+            return st
+            
+            
+   2. using stacks
+   
+   stack 1 brackets
+   stack 2 thier index
+   dont append indices of string present in stack2
+   
+   
+   
+   
+   3. using one stack
+   
+   dont use stack1 only use one stack to store indices..
+   
+   
