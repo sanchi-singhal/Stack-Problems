@@ -1,0 +1,34 @@
+1441. Build an Array With Stack Operations
+
+
+https://leetcode.com/problems/build-an-array-with-stack-operations/description/
+
+
+
+1. Using stacks
+
+class Solution:
+    def __init__(self):
+        self.l=[]
+    def push(self,el):
+        self.l.append(el)
+    def pop(self):
+        if(self.l):
+            self.l.pop()
+    def buildArray(self, target: List[int], n: int) -> List[str]:
+        m=[]
+        for i in range(1,n+1):
+            if(target==self.l):
+                break
+            else:
+                if(i in target):
+                    self.push(i)
+                    m.append("Push")
+                else:
+                    m.append("Push")
+                    m.append("Pop")
+        return m
+  
+  
+ 2. using loops
+ simply iterate and do if matches the target index same as above
