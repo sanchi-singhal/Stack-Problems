@@ -1,0 +1,52 @@
+1003. Check If Word Is Valid After Substitutions
+
+
+https://leetcode.com/problems/check-if-word-is-valid-after-substitutions/description/
+
+
+1. using strings
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        while("abc" in s):
+            s=s.replace("abc","")
+        print(s)
+        if(s==""):
+            return True
+        else:
+            return False
+
+
+2. using stacks
+
+ for(int i=0;i<n;i++)
+        {
+            stk.push(s.charAt(i));
+            if(s.charAt(i)=='c' && stk.size()>=3)
+            {
+                char c,b,a;
+                c = stk.pop();
+                b = stk.pop();
+                a = stk.pop();
+                if(a=='a' && b=='b' && c=='c')
+                {
+                    //Ignore
+                }
+                else
+                {
+                    stk.push(a);
+                    stk.push(b);
+                    stk.push(c);
+                }
+            }
+            else if(s.charAt(i)=='c')
+                return false;
+        }
+        return stk.empty();
+        
+        
+        
+  3. using two pointer
+  
+  
+  
